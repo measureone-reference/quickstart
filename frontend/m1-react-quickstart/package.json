@@ -1,0 +1,63 @@
+{
+  "name": "m1-react-quickstart",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fontsource/roboto": "^5.0.13",
+    "@jsonforms/core": "^3.3.0",
+    "@jsonforms/material-renderers": "^3.3.0",
+    "@jsonforms/react": "^3.3.0",
+    "@mui/icons-material": "^5.15.21",
+    "@mui/material": "^5.15.21",
+    "@mui/x-date-pickers": "^7.8.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
+    "formik": "^2.4.6",
+    "mui-color-input": "^2.0.3",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.4",
+    "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
+    "react-json-view": "^1.21.3",
+    "react-scripts": "5.0.1",
+    "react-split-pane": "^2.0.3",
+    "react-usestateref": "^1.0.9",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.4.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^3.0.0",
+    "react-router-dom": "^6.24.0"
+  },
+  "proxy": "http://localhost:3000"
+}
