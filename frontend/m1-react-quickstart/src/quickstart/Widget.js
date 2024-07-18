@@ -24,6 +24,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function LaunchLink({ setEnableNext, datarequest_id }) {
+    let widgetRef = React.useRef(null);
+
 
 
     let [eventsLog, setEventsLog, eventsLogRef] = useState([]);
@@ -125,9 +127,9 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
         formik.values.is_dark = isDarkRef.current
     }
 
-    let widgetRef = React.useRef<HTMLElement>(null);
-    React.useEffect(() => {
-        if (!widgetRef.current) { console.log("Widget ref is null"); return };
+
+
+    const onWidgetRefChange = React.useCallback(newWidgetRef => {
 
         const onDataSourceConnected = (event) => {
             console.log("Datasource connected", event.detail);
@@ -143,7 +145,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
 
 
         const onTokenExpired = (event) => {
-            console.log("Token expired", event.detail);
+            console.log("Token expired ", event.detail);
             setEventsLog([...eventsLogRef.current, event.detail]);
         }
 
@@ -155,23 +157,31 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
             handleClose();
         }
 
-        console.log("Registering eventss");
-        widgetRef?.current.addEventListener("datasourceConnected", onDataSourceConnected);
-        widgetRef?.current.addEventListener("itemsCreated", onItemsCreated);
-        widgetRef?.current.addEventListener("consentStatusChanged", onConsentStatusChanged);
-        widgetRef?.current.addEventListener("tokenExpired", onTokenExpired);
+        console.log("newWidgetRef", newWidgetRef);
+
+        // if new ref is null , m1link has been unmounted , remove listeners of current ref
+        if (newWidgetRef === null) { 
+            if(widgetRef?.current){
+                console.log("Removing event listeners");
+                widgetRef?.current?.removeEventListener("datasourceConnected", onDataSourceConnected);
+                widgetRef?.current?.removeEventListener("itemsCreated", onItemsCreated);
+                widgetRef?.current?.removeEventListener("consentStatusChanged", onConsentStatusChanged);
+                widgetRef?.current?.removeEventListener("tokenExpired", onTokenExpired);
+            }
 
 
-        return () => {
-            console.log("Removing event listeners");
-            widgetRef?.current?.removeEventListener("datasourceConnected", onDataSourceConnected);
-            widgetRef?.current?.removeEventListener("itemsCreated", onItemsCreated);
-            widgetRef?.current?.removeEventListener("consentStatusChanged", onConsentStatusChanged);
-            widgetRef?.current?.removeEventListener("tokenExpired", onTokenExpired);
+        } else {
 
+             widgetRef.current = newWidgetRef;
+                     
+                console.log("Registering eventss");
+                widgetRef?.current.addEventListener("datasourceConnected ", onDataSourceConnected);
+                widgetRef?.current.addEventListener("itemsCreated", onItemsCreated);
+                widgetRef?.current.addEventListener("consentStatusChanged", onConsentStatusChanged);
+                widgetRef?.current.addEventListener("tokenExpired", onTokenExpired)
+    
         }
-
-    }, []);
+      }, []); // adjust deps
     
     return (
         <React.Fragment>
@@ -246,15 +256,15 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
                 </AppBar>
                 <HelmetProvider>
                     <Helmet>
-                        <script src="https://api-stg.measureone.com/v3/js/m1-link-2021042000.js" />
+                    <script src="https://api-stg.measureone.com/v3/js/m1-link-2021042000.js" />
                     </Helmet>
                 </HelmetProvider>
                 <Grid container style={{ marginLeft: "auto", marginRight: "auto" }}>
 
                     <Grid item lg={12} style={{ marginLeft: "auto", marginRight: "auto" }} >
                         <div sx={{ borderRadius: "5px", borderColor: "#EFEFEF" }} style={{ borderRadius: "5px", borderColor: "#EFEFEF", border: "solid thin #EFEFEF", boxShadow: "5px", width: "380px", marginLeft: "auto", marginRight: "auto", marginTop: "3em" }}>
-                            <m1-link
-                                ref={widgetRef}
+                        <m1-link 
+                                ref={onWidgetRefChange}
                                 config={
                                     JSON.stringify({
                                         access_key: config.access_key,
