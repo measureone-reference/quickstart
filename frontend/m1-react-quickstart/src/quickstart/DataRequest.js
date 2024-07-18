@@ -3,7 +3,7 @@ import {
     materialRenderers,
     materialCells,
 } from '@jsonforms/material-renderers';
-import { Alert, Button, Grid, ListSubheader, MenuItem, Select, TextField } from '@mui/material';
+import { Alert, Button, Grid, ListSubheader, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { FormikConsumer, useFormik, withFormik } from 'formik';
 import * as yup from 'yup';
 import useState from 'react-usestateref' // see this line
@@ -11,15 +11,9 @@ import axios from 'axios';
 import ReactJson from 'react-json-view'
 
 
-const validationSchema = yup.object({
-    type: yup
 
-        .string('Select the Data Request type')
-        .required('Select the Data Request type'),
 
-});
-
-export default function CreateDataRequest({ setEnableNext, setDr_id, individual_id }) {
+export default function CreateDataRequest({ setEnableNext, setDr_id, individual_id, setActiveStep }) {
     let [disabled, setDisabled, disabledRef] = useState(true);
     let [displaySuccess, setDisplaySuccess] = useState("none");
     let [displayError, setDisplayError] = useState("none");
@@ -64,6 +58,7 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
             setDisabled(true)
             setDr_id(response.data.id);
             setDisplaySuccess("block")
+            setActiveStep(2);
         }
     };
 
@@ -98,23 +93,16 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
                         <Grid item display={displaySuccess} lg={12}>
                             <Alert severity="info" style={{ marginTop: "1em" }}>To view more properties of Data Request, clicke here</Alert>
                         </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item lg={6}>
-                                <h4 sx={{ marginTop: "0 !important", paddingTop: "0 !important" }} >Data Request Details</h4>
-                            </Grid>
-                            <Grid item display={displayResponse}>
-                                <h4 sx={{ marginTop: "0 !important", paddingTop: "0 !important" }} >JSON Response after creating and fetching the DataRequest</h4>
-                            </Grid>
-
-                        </Grid>
+                        
                     </Grid>
                     <Grid item lg={6}>
-                        <h4>Individual ID</h4><span> {individual_id}</span>
-                        <h4 style={{ marginTop: "2em" }}>Select the type of Data Request you want to create</h4>
+                       
+                        
+                        
                         <Select id="drType" name="drType" variant="outlined" onChange={onChange} value={formik.values.drType}
                             placeholder='Select' required lg={12} sx={{ minWidth: "16rem" }}>
 
-                            <MenuItem value="0" >Select </MenuItem>
+                            <MenuItem value="0" >Select Data Request Type</MenuItem>
                             <ListSubheader sx={{ fontWeight: "bold", backgroundColor: "#EFEFEF" }}>INSURANCE</ListSubheader>
                             <MenuItem value="AUTO_INSURANCE_DETAILS">Auto Insurance Details</MenuItem>
                             <MenuItem value="HOME_INSURANCE_DETAILS">Home Insurance Details</MenuItem>
@@ -130,7 +118,7 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
 
                         </Select>
                         <Grid item lg={12} marginTop={"3em"}>
-                            <Button type="button" size='large' variant='outlined' color="primary" disabled={disabled} onClick={buttonClicked} >Submit</Button>
+                            <Button type="button" size='large' variant='outlined' color="primary" disabled={disabled} onClick={buttonClicked} >Create Data Request</Button>
                         </Grid>
                     </Grid>
                     <Grid item lg={6} display={displayResponse}>

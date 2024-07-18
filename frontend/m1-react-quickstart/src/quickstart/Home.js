@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Box, Container, MobileStepper, Paper, Divider } from '@mui/material';
+import { Box, Container, MobileStepper, Paper, Divider, StepContent, Alert } from '@mui/material';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@emotion/react';
@@ -48,36 +49,94 @@ export default function Home() {
 
 
     return (
-        <Container display="flex" maxWidth={"lg"} style={{ marginTop: "8em", justifyContent: "center", display: "flex", flexDirection: "column" }} >
+
+        <Container display="flex" maxWidth={"xl"} style={{ marginTop: "8em", justifyContent: "center", display: "flex", flexDirection: "column" }} >
+            <Typography variant='h2'>
+                Integrating MeasureOne
+            </Typography>
             <Divider></Divider>
-            <MobileStepper
+            <Stepper
                 sx={{ width: '100%', backgroundColor: "#f5f5f5" }}
                 variant="text"
                 steps={maxSteps}
                 position="static"
                 activeStep={activeStep}
-                nextButton={
-                    <Button
-                        size="large"
-                        onClick={handleNext}
-                        disabled={(activeStep === maxSteps - 1) || (enableNext == false)}
-                    >
-                        Next
-                    </Button>
-                }
+
             />
             <Divider></Divider>
-            <Typography variant='h3' marginTop={3}>{steps[activeStep].label} </Typography>
+            <Stepper orientation='vertical' activeStep={activeStep}>
 
-            <Box sx={{ width: '100%', marginTop: "0.5em" }} color={"#898989"}>
-                {steps[activeStep].description}
-            </Box>
+                <Step sx={{ paddingTop: "3em" }} >
+                    <StepLabel>
+                        <Typography variant='body2' fontWeight={"bold"}>
+                            {steps[0].label}
+                        </Typography>
+                        <Typography variant='subtitle2' color={"#808080"} >
+                            {steps[0].description}
+                        </Typography>
 
-            <div style={{ marginTop: "3em" }}>
-                {activeStep === 0 && <CreateIndividual setEnableNext={setEnableNext} setIndividual_id={setIndividual_id} />}
-                {activeStep === 1 && <CreateDataRequest setEnableNext={setEnableNext} individual_id={individual_idRef.current} setDr_id={setDr_id} />}
-                {activeStep === 2 && <LaunchLink setEnableNext={setEnableNext} datarequest_id={dr_idRef.current} />}
-            </div>
+                        <Alert severity="success" sx={{ display: individual_idRef.current != "" ? "block" : "none", paddingTop: "1em" }}>
+                            <Typography variant='body2' fontWeight={"bold"}>Individual Created. ID: {individual_idRef.current}</Typography>
+                            <Typography variant='body'>To view more properties of an Individual, click <a href="#">here</a></Typography>
+                        </Alert>
+
+
+
+
+                    </StepLabel>
+                    <StepContent>
+                        <CreateIndividual setEnableNext={setEnableNext} setIndividual_id={setIndividual_id} setActiveStep={setActiveStep} />
+                    </StepContent>
+                </Step>
+                <Step >
+                    <StepLabel>
+
+                        <Typography variant='body2' fontWeight={"bold"}>
+                            {/* {steps[1].label} {individual_idRef.current != "" ? `for Individual ID: ${individual_idRef.current}` : ""} */}
+                        </Typography>
+                        <Typography variant='subtitle2' color={"#808080"} >
+                            {steps[1].description}
+                        </Typography>
+
+                        <Alert severity="success" sx={{ display: dr_idRef.current != "" ? "block" : "none", paddingTop: "1em" }}>
+                            <Typography variant='body2' fontWeight={"bold"}>Data Request Created. ID: {dr_idRef.current}</Typography>
+                            <Typography variant='body'>To view more properties of the Data Request, click <a href="#">here</a></Typography>
+                        </Alert>
+
+                    </StepLabel>
+                    <StepContent>
+
+                        <CreateDataRequest setEnableNext={setEnableNext} individual_id={individual_idRef.current} setDr_id={setDr_id} setActiveStep={setActiveStep} />
+
+                    </StepContent>
+                </Step>
+                <Step>
+                    <StepLabel>
+                        <Typography variant='body2' fontWeight={"bold"}>
+                            {steps[2].label}
+                        </Typography>
+                        <Typography variant='subtitle2' color={"#808080"} >
+                            {steps[2].description}
+                        </Typography>
+                    </StepLabel>
+                    <StepContent sx={{ marginTop: "2em" }}>
+                        <Typography variant='button' color={"#343434"} fontWeight={"bold"}>
+                            Customize your widget before launch
+                        </Typography>
+
+                        <LaunchLink setEnableNext={setEnableNext} datarequest_id={dr_idRef.current} />
+
+                    </StepContent>
+                </Step>
+
+            </Stepper >
+
+
+
+
+
+
+
 
 
 
