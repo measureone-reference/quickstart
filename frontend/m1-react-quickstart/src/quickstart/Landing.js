@@ -4,7 +4,7 @@ export default function Landing() {
   return (
     <>
 
-      <Container display="flex" maxWidth={"lg"}>
+      <Container display="flex" maxWidth={"lg"} sx={{marginTop: "15rem"}}>
         <Box>
           <Typography variant="h2">
             Welcome to MeasureOne Quickstart App
@@ -16,7 +16,7 @@ export default function Landing() {
         </Typography>
 
         <p >
-          <Button style={{ maxWidth: '200px', maxHeight: '30px', minWidth: '200px', minHeight: '60px' }} variant='outlined' href={"/home"} >  LET's GO</Button>
+          <Button style={{ maxWidth: '200px', maxHeight: '30px', minWidth: '200px', minHeight: '60px', marginTop:"4em" }} variant='outlined' href={"/home"} >  LET's GO</Button>
         </p>
 
       </Container >

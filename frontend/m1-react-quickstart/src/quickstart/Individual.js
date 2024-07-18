@@ -27,16 +27,16 @@ const validationSchema = yup.object({
 
 
 
-export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
+export default function CreateIndividual({ setEnableNext, setIndividual_id, setActiveStep }) {
     let [disabled, setDisabled, disabledRef] = useState(true);
     let [displaySuccess, setDisplaySuccess, displaySuccessRef] = useState("none");
     let [displayError, setDisplayError, displayErrorRef] = useState("none");
-    let [individualJson, setIndividualJson, individualJsonRef] = useState({});
+    let [individualJson, setIndividualJson, individualJsonRef] = useState({first_name:"", last_name:"", email:"", external_id:""});
     let [displayResponse, setDisplayResponse, displayResponseRef] = useState("none");
-    const formik = useFormik({
-        initialValues: {
 
-        },
+
+    const formik = useFormik({
+        initialValues: { first_name: "", last_name: "", email: "", external_id: "" },
         validationSchema: validationSchema,
         validate: (values) => {
             setDisabled(true);
@@ -48,21 +48,21 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
     });
 
     const buttonClicked = async () => {
-        console.log("Button clicked")
+
         if (formik.isValid) {
-            console.log("Form is valid")
-            console.log(formik.values);
+
             setDisplaySuccess("none")
             setDisplayResponse("none")
             setDisabled(true);
             let response = await createAndGetIndividual(formik.values);
-            setIndividualJson(response.data);
+            // setIndividualJson(response.data);
             setIndividual_id(response.data.individual_id);
-            setDisabled(false)
-            formik.resetForm({});
+            setDisabled(false);
+ 
             setDisplaySuccess("block")
             setDisplayResponse("block")
-            setEnableNext(true);
+
+            setActiveStep(1);
         }
     };
 
@@ -70,10 +70,9 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
         <div >
 
             <form   >
-                <Grid container spacing={3} style={{ display: "flex", direction: "column" }} >
+                <Grid container spacing={1} style={{ display: "flex", direction: "column" }} >
                     <Grid item lg={12}>
                         <Grid item display={displaySuccess} lg={12}>
-                            <Alert severity="info" style={{ marginTop: "1em" }}>To view more properties of an Individual, clicke here</Alert>
                         </Grid>
                         <Grid item display={displaySuccess} lg={12}>
                             <Alert severity="success" style={{ marginTop: "1em" }}>Individual created Successfully. Click NEXT to proceed</Alert>
@@ -81,18 +80,10 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
                         <Grid item display={displayError} lg={12}>
                             <Alert severity="success" style={{ marginTop: "1em" }}>Individual created Successfully. Click NEXT button below to proceed</Alert>
                         </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item lg={6}>
-                                <h4 sx={{ marginTop: "0 !important", paddingTop: "0 !important" }} >Individual Details</h4>
-                            </Grid>
-                            <Grid item display={displayResponse}>
-                                <h4 sx={{ marginTop: "0 !important", paddingTop: "0 !important" }} >JSON Response after creating and fetching the Individual</h4>
-                            </Grid>
 
-                        </Grid>
                     </Grid>
                     <Grid item lg={6}>
-                        <Grid container spacing={3}>
+                        <Grid container spacing={2}>
                             <Grid item lg={12}>
                                 <TextField
                                     fullWidth
@@ -103,8 +94,10 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
                                     label="First Name"
                                     placeholder='Enter first name'
                                     value={formik.values.first_name}
+                                    onBeforeInput={formik.handleBeforeInput}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    onKeyUp={formik.handleKeyUp}
                                     error={formik.touched.first_name && Boolean(formik.errors.first_name)}
                                     helperText={formik.touched.first_name && formik.errors.first_name}
                                 />
@@ -133,7 +126,7 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
                                     name="email"
                                     label="Email"
                                     type="email"
-                                    value={formik.values.email}
+                                    value={formik.values.email }
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.email && Boolean(formik.errors.email)}
@@ -148,12 +141,11 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
                                     name="external_id"
                                     label="Your user ID (Optional)"
                                     placeholder='This is the ID you will use to identify the Individual uniquely in your system'
-                                    type="text"
-                                    value={formik.values.externa_id}
+                                    type={formik.values.external_id}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    error={formik.touched.externa_id && Boolean(formik.errors.externa_id)}
-                                    helperText={formik.touched.externa_id && formik.errors.externa_id}
+                                    error={formik.touched.external_id && Boolean(formik.errors.external_id)}
+                                    helperText={formik.touched.external_id && formik.errors.external_id}
                                 />
                             </Grid>
                         </Grid>
@@ -169,7 +161,7 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id }) {
 
                     <Grid item lg={12} >
                         <div style={{ marginTop: "1em", width: "100%" }}>
-                            <Button type="button" size='large' variant='outlined' color="primary" disabled={disabled} onClick={buttonClicked} >Submit</Button>
+                            <Button type="button" size='large' variant='outlined' color="primary" disabled={disabled} onClick={buttonClicked} >CREATE INDIVIDUAL</Button>
 
                         </div>
 
