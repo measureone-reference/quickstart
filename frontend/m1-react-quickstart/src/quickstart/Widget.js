@@ -1,23 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, AppBar, Box, Button, Card, Checkbox, Dialog, FormLabel, Grid, IconButton, Input, List, ListItem, ListItemText, Slide, TextField, Toolbar, Typography } from "@mui/material"
+import { AppBar, Button, Checkbox, Dialog, FormLabel, Grid, IconButton, Slide, TextField, Toolbar, Typography } from "@mui/material"
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
 import useState from "react-usestateref";
 import * as React from 'react';
-
-import { styled } from '@mui/material/styles';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion from '@mui/material/Accordion';
-import MuiAccordionSummary from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import ReactJson from "react-json-view";
 import { MuiColorInput } from 'mui-color-input'
 import WebhooksComponent from "./Webhooks";
-import { TransitionProps } from '@mui/material/transitions';
 import CloseIcon from '@mui/icons-material/Close';
-import { MaterialInputControl } from "@jsonforms/material-renderers";
-import { Formik, useFormik } from "formik";
-import { dark } from "@mui/material/styles/createPalette";
-
+import { useFormik } from "formik";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -25,11 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function LaunchLink({ setEnableNext, datarequest_id }) {
     let widgetRef = React.useRef(null);
-
-
-
     let [eventsLog, setEventsLog, eventsLogRef] = useState([]);
-
     let [dsConnected, setDsConnected, dsConnectedRef] = useState({});
     let [itemsCreated, setItemsCreated, itemsCreatedRef] = useState({});
     let [primaryDarkColor, setPrimaryDarkColor, primaryDarkColorRef] = useState("#186793");
@@ -43,30 +27,30 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
     let [lightTextColor, setLightTextColor, lightTextColorRef] = useState("#ffffff");
     let [darkTextColor, setDarkTextColor, darkTextColorRef] = useState("#343434");
 
+    const widgetStyles = {
+        primary_dark: primaryDarkColorRef.current,
+        primary_light: primaryLightColorRef.current,
+        secondary_color: secondaryColorRef.current,
+        dark_background: darkBackgroundColorRef.current,
+        light_background: lightBackgroundColorRef.current,
+        light_text: lightTextColorRef.current,
+        dark_text: darkTextColorRef.current,
+        font_family: fontFamilyRef.current,
+        font_url: fontURLRef.current,
+        isDark: isDarkRef.current
+    } 
+
     const config = {
-        access_key: "a2cf19d1-1182-4600-9ed1-ea312473bc36",
-        host_name: "api-stg.measureone.com",
+        access_key: `${process.env.REACT_APP_ACCESS_KEY}`,
+        host_name: `${process.env.REACT_APP_M1_HOSTNAME}`,
         datarequest_id: datarequest_id,
         branding: {
-            styles: {
-
-            }
+            styles: widgetStyles
         }
     }
 
     const formik = useFormik({
-        initialValues: {
-            primary_dark: primaryDarkColorRef.current,
-            primary_light: primaryLightColorRef.current,
-            secondary_color: secondaryColorRef.current,
-            dark_background: darkBackgroundColorRef.current,
-            light_background: lightBackgroundColorRef.current,
-            light_text: lightTextColorRef.current,
-            dark_text: darkTextColorRef.current,
-            font_family: fontFamilyRef.current,
-            font_url: fontURLRef.current,
-            is_dark: isDarkRef.current
-        },
+        initialValues: widgetStyles,
         onSubmit: values => {
             console.log(values);
         }
@@ -74,10 +58,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
 
     const componnenetDidMount = () => {
         console.log("Component did mount");
-
     }
-
-
 
     const [open, setOpen] = React.useState(false);
 
@@ -124,10 +105,8 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
     const handleIsDarkChange = (event) => {
         console.log("Is dark ", event.target.checked);
         setIsDark(event.target.checked);
-        formik.values.is_dark = isDarkRef.current
+        formik.values.isDark = isDarkRef.current
     }
-
-
 
     const onWidgetRefChange = React.useCallback(newWidgetRef => {
 
@@ -157,8 +136,6 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
             handleClose();
         }
 
-        console.log("newWidgetRef", newWidgetRef);
-
         // if new ref is null , m1link has been unmounted , remove listeners of current ref
         if (newWidgetRef === null) { 
             if(widgetRef?.current){
@@ -174,7 +151,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
 
              widgetRef.current = newWidgetRef;
                      
-                console.log("Registering eventss");
+                console.log("Registering events");
                 widgetRef?.current.addEventListener("datasourceConnected ", onDataSourceConnected);
                 widgetRef?.current.addEventListener("itemsCreated", onItemsCreated);
                 widgetRef?.current.addEventListener("consentStatusChanged", onConsentStatusChanged);
@@ -188,7 +165,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
 
             <Grid container spacing={2} marginTop={1}>
                 <Grid item lg={12}>
-                    <Checkbox value={formik.values.is_dark} onChange={handleIsDarkChange} label="Enable Dark Mode">
+                    <Checkbox value={formik.values.isDark} onChange={handleIsDarkChange} label="Enable Dark Mode">
                     </Checkbox>
                     <FormLabel>Enable Dark Mode</FormLabel>
                 </Grid>
@@ -238,11 +215,11 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
 
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             Launching MeasureOne Widget
-
+                            <Typography variant="subtitle2">
+                                The widget can also be launched without opening a Popup within your app
+                            </Typography>
                         </Typography>
-                        <Typography variant="subtitle2">
-                            The widget can also be launched without opening a Popup within your app
-                        </Typography>
+                       
                         <IconButton
                             edge="end"
                             color="inherit"
@@ -262,6 +239,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
                 <Grid container style={{ marginLeft: "auto", marginRight: "auto" }}>
 
                     <Grid item lg={12} style={{ marginLeft: "auto", marginRight: "auto" }} >
+
                         <div sx={{ borderRadius: "5px", borderColor: "#EFEFEF" }} style={{ borderRadius: "5px", borderColor: "#EFEFEF", border: "solid thin #EFEFEF", boxShadow: "5px", width: "380px", marginLeft: "auto", marginRight: "auto", marginTop: "3em" }}>
                         <m1-link 
                                 ref={onWidgetRefChange}
@@ -270,8 +248,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
                                         access_key: config.access_key,
                                         host_name: config.host_name,
                                         datarequest_id: config.datarequest_id,
-
-
+                                        branding:config.branding,
                                     })}
 
                                 
@@ -279,10 +256,16 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
                             </m1-link>
 
                         </div>
+
+                        <div style={{ marginTop: "3em"}}>
+                            <WebhooksComponent />
+                        </div>
+
                     </Grid>
 
                 </Grid >
             </Dialog>
+
         </React.Fragment>
 
 

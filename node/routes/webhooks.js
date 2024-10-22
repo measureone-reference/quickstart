@@ -5,9 +5,8 @@ const axios = require('axios');
 const SSE = require('express-sse');
 const sse = new SSE();
 
-
 router.post('/recieve_webhook', function (req, res, next) {
-    logger.info(`Recieved a webhook: ${req.body}`);
+    logger.info(`Received a webhook: ${JSON.stringify(req.body)}`);
     sse.send(req.body);
 });
 

@@ -5,6 +5,7 @@ const axios = require('axios');
 
 /* GET users listing. */
 router.post('/new', function (req, res, next) {
+
   logger.info(`Creating a new Data Request with token ${process.env.M1_ACCESS_TOKEN}`);
 
   const headers = {
@@ -12,31 +13,27 @@ router.post('/new', function (req, res, next) {
     'Content-Type': 'application/json'
   }
 
+  const webhooks = [
+    "datasource.connected",
+    "datarequest.items_available", 
+    "datarequest.report_available", 
+    "datarequest.no_items",
+    "session.rejected"
+  ];
 
-  let dr_request = {
+  const webhook_url = `${process.env.NGROK_URL}/webhooks/recieve_webhook`;
+  const webhook_delivery_details = webhooks.map((value) => ({ event_type: value,  url: webhook_url}));
+
+  let datarequest_payload = {
     individual_id: req.body.individual_id,
     type: req.body.type,
-    delivery_details: [
-      {
-        event_type: "datarequest.items_available",
-        url: `${process.env.NGROK_URL}/webhooks/recieve_webhook`
-      },
-      {
-        event_type: "datasource.connected",
-        url: `${process.env.NGROK_URL}/webhooks/recieve_webhook`
-      },
-      
-      {
-        event_type: "datarequest.no_items",
-        url: `${process.env.NGROK_URL}/webhooks/recieve_webhook`
-      },
-      {
-        event_type: "session.rejected",
-        url: `${process.env.NGROK_URL}/webhooks/recieve_webhook`
-      }
-    ]
+    request_details: {},
+    delivery_details: webhook_delivery_details
   }
-  axios.post(`${process.env.M1_API_URL}/v3/datarequests/new`, dr_request, {
+
+  console.log("datarequest_payload", datarequest_payload);
+
+  axios.post(`${process.env.M1_API_URL}/v3/datarequests/new`, datarequest_payload, {
     headers
 
   }).then((response) => {

@@ -15,11 +15,11 @@ export default function Landing() {
           The MeasureOne Consumer-permissioned-data flow begins with you creating a user, followed by a DataRequest and finally initiating the consumer flow. Start by clicking the link below to follow the steps and launch the client-side component that your users will interact for you to receive the requested information.
         </Typography>
 
-        <p >
+        <p>
           <Button style={{ maxWidth: '200px', maxHeight: '30px', minWidth: '200px', minHeight: '60px', marginTop:"4em" }} variant='outlined' href={"/home"} >  LET's GO</Button>
         </p>
 
-      </Container >
+      </Container>
     </>
   );
 }

@@ -4,22 +4,30 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 const logger = require('./shared/log');
 
+
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 const individualRouter = require('./routes/individuals');
 const datarequestRouter = require('./routes/datarequests');
 const webhookRouter = require('./routes/webhooks');
 const { log } = require('console');
-const dotenv = require('dotenv').config();
 const base64 = require('base-64');
 const axios = require('axios');
 const ngrok = require('ngrok');
 var app = express();
+const cors = require('cors');
+
+
+
+require("dotenv").config({
+  path: `.env`,
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -27,12 +35,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 (async () => {
 
-
   logger.info("Starting the server ...");
   logger.info("Generating M1 API access token ...");
   const M1_CLIENT_ID = process.env.M1_CLIENT_ID;
   const M1_CLIENT_SECRET = process.env.M1_CLIENT_SECRET;
   const M1_API_URL = process.env.M1_API_URL;
+
+  console.log("M1_CLIENT_ID", M1_CLIENT_ID);
+  console.log("M1_CLIENT_SECRET", M1_CLIENT_SECRET);
+  console.log("M1_API_URL", M1_API_URL);
+
   const base64String = Buffer.from(`${M1_CLIENT_ID}:${M1_CLIENT_SECRET}`).toString('base64');
   logger.info(`Base64 encoded string: ${base64String}`);
   const authHeader = `Basic ${base64String}`;
@@ -46,8 +58,11 @@ app.use(express.static(path.join(__dirname, 'public')));
       }
     });
 
+    console.log("response.data", response.data);
+
     // set the access token in the environment for use in the application
     process.env.M1_ACCESS_TOKEN = response.data.access_token;
+    process.env.M1_API_URL = M1_API_URL;
 
     //initiate nGrok to expose the local server to the internet and receive webhooks
     try{
@@ -57,7 +72,6 @@ app.use(express.static(path.join(__dirname, 'public')));
   }catch(error){
     logger.error(`Error starting ngrok: ${error}`);
   }
-    
 
     app.use('/', indexRouter);
     app.use('/auth', authRouter);
