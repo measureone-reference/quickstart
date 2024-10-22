@@ -1,8 +1,4 @@
 import React, { useEffect } from 'react';
-import {
-    materialRenderers,
-    materialCells,
-} from '@jsonforms/material-renderers';
 import { Alert, Button, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -21,11 +17,6 @@ const validationSchema = yup.object({
         .required('Last name is required'),
     email: yup.string("Valid email is required").email("Invalid email").required("Email is required")
 });
-
-
-
-
-
 
 export default function CreateIndividual({ setEnableNext, setIndividual_id, setActiveStep }) {
     let [disabled, setDisabled, disabledRef] = useState(true);
@@ -56,7 +47,7 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id, setA
             setDisabled(true);
             let response = await createAndGetIndividual(formik.values);
             // setIndividualJson(response.data);
-            setIndividual_id(response.data.individual_id);
+            setIndividual_id(response.data.id);
             setDisabled(false);
  
             setDisplaySuccess("block")
@@ -174,15 +165,11 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id, setA
 }
 
 async function createAndGetIndividual(values) {
-    console.log("Create and get individual", values)
-    //use axios to call localhost/individuals/create
-
     let response = await axios.post('/api/individuals/new', values, {
         headers: {
             'Content-Type': 'application/json',
         }
-
     });
-    return response;
 
+    return response;
 }

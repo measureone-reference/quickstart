@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-    materialRenderers,
-    materialCells,
-} from '@jsonforms/material-renderers';
-import { Alert, Button, Grid, ListSubheader, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { FormikConsumer, useFormik, withFormik } from 'formik';
+import { Alert, Button, Grid, ListSubheader, MenuItem, Select } from '@mui/material';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 import useState from 'react-usestateref' // see this line
 import axios from 'axios';
 import ReactJson from 'react-json-view'
-
-
-
 
 export default function CreateDataRequest({ setEnableNext, setDr_id, individual_id, setActiveStep }) {
     let [disabled, setDisabled, disabledRef] = useState(true);
@@ -30,7 +23,6 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
             drType: yup.string().required("Data Request type is required!")
         }),
         validateForm: (values) => {
-            console.log("Validate form", values);
             if (values.drType != 0) {
                 setDisabled(false)
                 return true;
@@ -43,11 +35,8 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
     });
 
     const buttonClicked = async () => {
-        console.log("Button clicked", formik.values)
         setDisabled(true);
         if (formik.isValid) {
-            console.log("Form is valid")
-            console.log(formik.values)
             let response = await createAndGetDataRequest({
                 "individual_id": individual_id,
                 "type": formik.values.drType
@@ -63,7 +52,6 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
     };
 
     const onChange = (event) => {
-        console.log("On Change", event.target.value)
         setDisplayError("none");
         setDisplaySuccess("none");
         setSelectedDR(event.target.value);
@@ -73,10 +61,8 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
             setDisabled(false);
         }
         formik.setFieldValue("drType", selectedDRRef.current);
-        console.log(selectedDRRef.current);
-
-
     }
+
     return (
         <div>
             <form id="drform" >
@@ -96,8 +82,6 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
                         
                     </Grid>
                     <Grid item lg={6}>
-                       
-                        
                         
                         <Select id="drType" name="drType" variant="outlined" onChange={onChange} value={formik.values.drType}
                             placeholder='Select' required lg={12} sx={{ minWidth: "16rem" }}>
@@ -134,16 +118,11 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
 }
 
 async function createAndGetDataRequest(values) {
-    console.log("Create and get individual", values)
-    //use axios to call localhost/individuals/create
-    const headers = {
-        'Content-Type': 'application/json',
-
-    }
     let response = await axios.post('/api/datarequests/new', values, {
-        headers
-
+        headers: {
+            'Content-Type': 'application/json',
+        }
     });
-    return response;
 
+    return response;
 }

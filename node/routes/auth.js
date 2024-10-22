@@ -30,7 +30,6 @@ router.post('/generate_access_token', async function (req, res, next) {
 
     const response = axiosInstance.post('/generate_access_token')
         .then((response) => {
-            console.log(response.data);
             const access_token = response.data.access_token;
             process.env.access_token = access_token;
         })

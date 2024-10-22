@@ -1,18 +1,13 @@
 import * as React from 'react';
-import { Box, Container, MobileStepper, Paper, Divider, StepContent, Alert } from '@mui/material';
+import { Container, Divider, StepContent, Alert } from '@mui/material';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@emotion/react';
 import CreateIndividual from './Individual';
 import CreateDataRequest from './DataRequest';
 import LaunchLink from './Widget';
 import useState from 'react-usestateref';
-
-
 
 const steps = [
     {
@@ -46,8 +41,6 @@ export default function Home() {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
-
-
     return (
 
         <Container display="flex" maxWidth={"xl"} style={{ marginTop: "8em", justifyContent: "center", display: "flex", flexDirection: "column" }} >
@@ -79,9 +72,6 @@ export default function Home() {
                             <Typography variant='body2' fontWeight={"bold"}>Individual Created. ID: {individual_idRef.current}</Typography>
                             <Typography variant='body'>To view more properties of an Individual, click <a href="#">here</a></Typography>
                         </Alert>
-
-
-
 
                     </StepLabel>
                     <StepContent>
@@ -130,15 +120,6 @@ export default function Home() {
                 </Step>
 
             </Stepper >
-
-
-
-
-
-
-
-
-
 
         </Container >
     );
