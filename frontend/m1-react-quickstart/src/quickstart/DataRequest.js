@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Grid, ListSubheader, MenuItem, Select } from '@mui/material';
+import { Alert, Button, Grid, ListSubheader, MenuItem, Select, Checkbox, FormControlLabel } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import useState from 'react-usestateref' // see this line
@@ -13,6 +13,7 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
     let [selectedDR, setSelectedDR, selectedDRRef] = useState("0");
     let [datarequestJSON, setDataRequestJSON, datarequestJSONRef] = useState({});
     let [displayResponse, setDisplayResponse, displayResponseRef] = useState("none");
+    let [enableManualUpload, setEnableManualUpload] = useState(false);
 
     const formik = useFormik({
 
@@ -39,7 +40,8 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
         if (formik.isValid) {
             let response = await createAndGetDataRequest({
                 "individual_id": individual_id,
-                "type": formik.values.drType
+                "type": formik.values.drType,
+                "enable_manual_upload": enableManualUpload
             });
             setDataRequestJSON(response.data);
             setDisplayResponse("block");
@@ -101,6 +103,21 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
                             <MenuItem value="REALIZED_GAINS">1099-B Realized Gains</MenuItem>
 
                         </Select>
+
+                        <Grid item lg={6} marginTop={"1em"}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={enableManualUpload}
+                                        onChange={(e) => setEnableManualUpload(e.target.checked)}
+                                        color="primary"
+                                    />
+                                }
+                                label="Enable Manual Upload"
+                            />
+                        </Grid>
+                        
+
                         <Grid item lg={12} marginTop={"3em"}>
                             <Button type="button" size='large' variant='outlined' color="primary" disabled={disabled} onClick={buttonClicked} >Create Data Request</Button>
                         </Grid>

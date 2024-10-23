@@ -28,6 +28,7 @@ router.post('/new', function (req, res, next) {
     individual_id: req.body.individual_id,
     type: req.body.type,
     request_details: {},
+    enable_manual_upload: req.body.enable_manual_upload, 
     delivery_details: webhook_delivery_details
   }
 
