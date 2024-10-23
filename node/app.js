@@ -6,7 +6,7 @@ const logger = require('./shared/log');
 
 
 var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
+var configRouter = require('./routes/config');
 const individualRouter = require('./routes/individuals');
 const datarequestRouter = require('./routes/datarequests');
 const webhookRouter = require('./routes/webhooks');
@@ -74,7 +74,7 @@ app.use(express.static(path.join(__dirname, 'public')));
   }
 
     app.use('/', indexRouter);
-    app.use('/auth', authRouter);
+    app.use('/config', configRouter);
     app.use('/individuals', individualRouter);
     app.use('/datarequests', datarequestRouter);
     app.use('/webhooks', webhookRouter);
