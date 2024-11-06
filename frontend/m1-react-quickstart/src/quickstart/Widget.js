@@ -6,6 +6,8 @@ import { MuiColorInput } from 'mui-color-input'
 import WebhooksComponent from "./Webhooks";
 import CloseIcon from '@mui/icons-material/Close';
 import { useFormik } from "formik";
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -26,7 +28,22 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
     let [lightBackgroundColor, setLightBackgroundColor, lightBackgroundColorRef] = useState("#ffffff");
     let [lightTextColor, setLightTextColor, lightTextColorRef] = useState("#ffffff");
     let [darkTextColor, setDarkTextColor, darkTextColorRef] = useState("#343434");
+    let [configData, setConfigData, configDataRef] = useState({});
 
+    useEffect(() => {
+        const fetchConfigData = async () => {
+            try {
+                const response = await getConfigData();
+                setConfigData(response);
+            } catch (error) {
+                console.error("Error fetching config data:", error);
+            }
+        };
+
+        fetchConfigData();
+    }, []);
+    
+    
     const widgetStyles = {
         primary_dark: primaryDarkColorRef.current,
         primary_light: primaryLightColorRef.current,
@@ -41,8 +58,8 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
     } 
 
     const config = {
-        access_key: `${process.env.REACT_APP_ACCESS_KEY}`,
-        host_name: `${process.env.REACT_APP_M1_HOSTNAME}`,
+        access_key: configDataRef.current.access_key,
+        host_name: configDataRef.current.host_name,
         datarequest_id: datarequest_id,
         branding: {
             styles: widgetStyles
@@ -270,4 +287,14 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
 
 
     )
+}
+
+async function getConfigData(values) {
+    let response = await axios.post('/api/config/get', values, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    return response.data;
 }
