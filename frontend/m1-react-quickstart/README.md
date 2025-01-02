@@ -4,8 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-Prequisite: NGRok configured
-            Reference Link: https://ngrok.com/download
+# Prequisite: Make sure NGRok is configured on your machine
+### Reference Link: https://ngrok.com/download
 
 In the project directory, you must navigate to `frontend` -> `m1-react-quickstart` folder and create a `.env` file
 
