@@ -29,6 +29,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
     let [lightTextColor, setLightTextColor, lightTextColorRef] = useState("#ffffff");
     let [darkTextColor, setDarkTextColor, darkTextColorRef] = useState("#343434");
     let [configData, setConfigData, configDataRef] = useState({});
+    let [scriptLoaded, setScriptLoaded] = useState(false); // To track if the script has been loaded
 
     useEffect(() => {
         const fetchConfigData = async () => {
@@ -80,12 +81,12 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
-
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
+        setScriptLoaded(true); // Set the flag to true once the script is loaded
     };
 
     const handlePrimaryColorChange = (color) => {
@@ -248,11 +249,15 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
 
                     </Toolbar>
                 </AppBar>
-                <HelmetProvider>
-                    <Helmet>
-                    <script src="https://api-stg.measureone.com/v3/js/m1-link-2021042000.js" />
-                    </Helmet>
-                </HelmetProvider>
+
+                {!scriptLoaded && (
+                    <HelmetProvider>
+                        <Helmet>
+                            <script src="https://api-stg.measureone.com/v3/js/m1-link-2021042000.js" />
+                        </Helmet>
+                    </HelmetProvider>
+                )}
+
                 <Grid container style={{ marginLeft: "auto", marginRight: "auto" }}>
 
                     <Grid item lg={12} style={{ marginLeft: "auto", marginRight: "auto" }} >

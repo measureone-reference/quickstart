@@ -70,7 +70,7 @@ export default function Home() {
 
                         <Alert severity="success" sx={{ display: individual_idRef.current != "" ? "block" : "none", paddingTop: "1em" }}>
                             <Typography variant='body2' fontWeight={"bold"}>Individual Created. ID: {individual_idRef.current}</Typography>
-                            <Typography variant='body'>To view more properties of an Individual, click <a href="#">here</a></Typography>
+                            <Typography variant='body'>To view more properties of an Individual, click <a href="https://docs.measureone.com/#tag/Individuals" target='_blank'>here</a></Typography>
                         </Alert>
 
                     </StepLabel>
@@ -90,7 +90,7 @@ export default function Home() {
 
                         <Alert severity="success" sx={{ display: dr_idRef.current != "" ? "block" : "none", paddingTop: "1em" }}>
                             <Typography variant='body2' fontWeight={"bold"}>Data Request Created. ID: {dr_idRef.current}</Typography>
-                            <Typography variant='body'>To view more properties of the Data Request, click <a href="#">here</a></Typography>
+                            <Typography variant='body'>To view more properties of the Data Request, click <a href="https://docs.measureone.com/#tag/Data-Requests" target='_blank'>here</a></Typography>
                         </Alert>
 
                     </StepLabel>
