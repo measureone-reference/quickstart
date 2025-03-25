@@ -16,17 +16,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Project Setup
 
 ### 1. Frontend Setup
-- Navigate to the `frontend/m1-react-quickstart` folder.
-- Create a `.env` file in this folder with the following content:
-  ```env
-  REACT_APP_SERVER_URL=http://localhost:3000
-  REACT_APP_M1_HOSTNAME=api.measureone.com
-  REACT_APP_ACCESS_KEY=
+
+- Copy `.env_frontend_sample` under `frontend/m1-react-quickstart` using following command and update access key in the newly created .env file.
+  
+- ```bash
+  cp .env_frontend_sample frontend/m1-react-quickstart/.env
   ```
-- In your terminal, navigate to the same folder and run:
-  ```bash
-  npm install
+
+- In your terminal, navigate to the `frontend/m1-react-quickstart` folder.
+
+- ```bash
+  cd frontend/m1-react-quickstart
   ```
+
+- Run the following command to install dependencies:
+
+- ```bash
+   npm install
+  ```
+
 - Once the dependencies are installed, start the frontend application with:
   ```bash
   npm start
@@ -34,14 +42,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - The application will run on [http://localhost:3000](http://localhost:3000) and the UI will be visible in your browser.
 
 ### 2. Backend Setup (Node Server)
-- Navigate to the `node` folder.
-- Create a `.env` file in this folder with the following content:
-  ```env
-  M1_API_URL=https://api.measureone.com
-  M1_CLIENT_ID=<your_client_id>
-  M1_CLIENT_SECRET=<your_client_secret>
+
+- Open a new terminal tab and copy `.env_node_sample` under `node` using following command and update client id and secret key.
+  
+- ```bash
+  cp .env_node_sample node/.env
   ```
-- Open a new terminal tab and navigate to the `node` folder.
+- Navigate to the `node` folder.
+- ```bash
+  cd node
+   ```
 - Run the following command to install dependencies:
   ```bash
   npm install
@@ -61,6 +71,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ---
 ### Notes
 - Ensure your Ngrok setup is properly configured to expose your local server if necessary.
-- Double-check your `.env` files for accuracy and ensure that your `M1_CLIENT_ID` and `M1_CLIENT_SECRET` are correctly added.
+- Double-check your `.env` files for accuracy and ensure that your `M1_CLIENT_ID` , `M1_CLIENT_SECRET` and `REACT_APP_ACCESS_KEY` are correctly added.
 
 
