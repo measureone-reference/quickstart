@@ -179,119 +179,176 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
       }, []); // adjust deps
     
     return (
-        <React.Fragment>
+      <React.Fragment>
+        <Grid container spacing={2} marginTop={1}>
+          <Grid item lg={12}>
+            <Checkbox
+              value={formik.values.isDark}
+              onChange={handleIsDarkChange}
+              label="Enable Dark Mode"
+            ></Checkbox>
+            <FormLabel>Enable Dark Mode</FormLabel>
+          </Grid>
+          <Grid item lg={3}>
+            <MuiColorInput
+              format="hex"
+              label="Primary Dark Color"
+              value={formik.values.primary_dark}
+              onChange={handlePrimaryColorChange}
+            ></MuiColorInput>
+          </Grid>
+          <Grid item lg={3}>
+            <MuiColorInput
+              format="hex"
+              label="Primary Light Color"
+              value={formik.values.primary_light}
+              onChange={handlePrimaryLightColorChange}
+            ></MuiColorInput>
+          </Grid>
+          <Grid item lg={3}>
+            <MuiColorInput
+              format="hex"
+              label="Dark Background Color"
+              value={formik.values.dark_background}
+              onChange={handleDarkBackgroundColorChange}
+            ></MuiColorInput>
+          </Grid>
+          <Grid item lg={3}>
+            <MuiColorInput
+              format="hex"
+              label="Light Background Color"
+              value={formik.values.light_background}
+              onChange={handleLighBackgroundColorChange}
+            ></MuiColorInput>
+          </Grid>
 
-            <Grid container spacing={2} marginTop={1}>
-                <Grid item lg={12}>
-                    <Checkbox value={formik.values.isDark} onChange={handleIsDarkChange} label="Enable Dark Mode">
-                    </Checkbox>
-                    <FormLabel>Enable Dark Mode</FormLabel>
-                </Grid>
-                <Grid item lg={3}>
-                    <MuiColorInput format="hex" label="Primary Dark Color" value={formik.values.primary_dark} onChange={handlePrimaryColorChange} ></MuiColorInput>
-                </Grid>
-                <Grid item lg={3}>
-                    <MuiColorInput format="hex" label="Primary Light Color" value={formik.values.primary_light} onChange={handlePrimaryLightColorChange}></MuiColorInput>
-                </Grid>
-                <Grid item lg={3}>
-                    <MuiColorInput format="hex" label="Dark Background Color" value={formik.values.dark_background} onChange={handleDarkBackgroundColorChange} ></MuiColorInput>
-                </Grid>
-                <Grid item lg={3}>
-                    <MuiColorInput format="hex" label="Light Background Color" value={formik.values.light_background} onChange={handleLighBackgroundColorChange}></MuiColorInput>
-                </Grid>
+          <Grid item lg={3}>
+            <MuiColorInput
+              format="hex"
+              label="Secondary Light Color"
+              value={formik.values.secondary_color}
+              onChange={handleSecondaryLightColorChange}
+            ></MuiColorInput>
+          </Grid>
+          <Grid item lg={3}>
+            <MuiColorInput
+              format="hex"
+              label="Light Text Color"
+              value={formik.values.light_text}
+              onChange={handleLighTextColorChange}
+            ></MuiColorInput>
+          </Grid>
+          <Grid item lg={3}>
+            <MuiColorInput
+              format="hex"
+              label="Dark Text Color"
+              value={formik.values.dark_text}
+              onChange={handleDarTextColorChange}
+            ></MuiColorInput>
+          </Grid>
+          <Grid item lg={12}>
+            <TextField
+              type="text"
+              label="Font Family"
+              variant="outlined"
+              fullWidth
+              value={formik.values.font_family}
+            ></TextField>
+          </Grid>
+          <Grid item lg={12}>
+            <TextField
+              type="text"
+              label="Font URL"
+              placeholder="Font URL"
+              variant="outlined"
+              fullWidth
+              value={formik.values.font_url}
+            ></TextField>
+          </Grid>
+        </Grid>
 
-                <Grid item lg={3}>
-                    <MuiColorInput format="hex" label="Secondary Light Color" value={formik.values.secondary_color} onChange={handleSecondaryLightColorChange}></MuiColorInput>
-                </Grid>
-                <Grid item lg={3}>
-                    <MuiColorInput format="hex" label="Light Text Color" value={formik.values.light_text} onChange={handleLighTextColorChange} ></MuiColorInput>
-                </Grid>
-                <Grid item lg={3}>
-                    <MuiColorInput format="hex" label="Dark Text Color" value={formik.values.dark_text} onChange={handleDarTextColorChange}></MuiColorInput>
-                </Grid>
-                <Grid item lg={12}>
-                    <TextField type="text" label="Font Family" variant="outlined" fullWidth value={formik.values.font_family} ></TextField>
-                </Grid>
-                <Grid item lg={12}>
-                    <TextField type="text" label="Font URL" placeholder="Font URL" variant="outlined" fullWidth value={formik.values.font_url} ></TextField>
-                </Grid>
+        <Button
+          variant="outlined"
+          onClick={handleClickOpen}
+          sx={{ marginTop: 4 }}
+        >
+          Open full-screen dialog
+        </Button>
+        <Dialog
+          sx={{ width: "1024px", borderRadius: "40px", margin: "auto" }}
+          fullWidth
+          maxWidth="lg"
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+        >
+          <AppBar sx={{ position: "relative", backgroundColor: "#186793" }}>
+            <Toolbar>
+              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                Launching MeasureOne Widget
+                <Typography variant="subtitle2">
+                  The widget can also be launched without opening a Popup within
+                  your app
+                </Typography>
+              </Typography>
 
-            </Grid>
+              <IconButton
+                edge="end"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
 
-            <Button variant="outlined" onClick={handleClickOpen} sx={{ marginTop: 4 }}>
-                Open full-screen dialog
-            </Button>
-            <Dialog
-                fullScreen
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={Transition}
+          {!scriptLoaded && (
+            <HelmetProvider>
+              <Helmet>
+                <script src="https://api-stg.measureone.com/v3/js/m1-link-2021042000.js" />
+              </Helmet>
+            </HelmetProvider>
+          )}
+
+          <Grid container style={{ marginLeft: "auto", marginRight: "auto" }}>
+            <Grid
+              item
+              lg={12}
+              style={{ marginLeft: "auto", marginRight: "auto" }}
             >
-                <AppBar sx={{ position: 'relative' }}>
-                    <Toolbar>
+              <div
+                style={{
+                  borderColor: "#EFEFEF",
+                  border: "solid 2px #EFEFEF",
+                  boxShadow: "5px",
+                  width: "375px",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  marginTop: "3em",
+                  borderRadius: "10px",
+                }}
+              >
+                <m1-link
+                  sx={{ borderRadius: "10px" }}
+                  ref={onWidgetRefChange}
+                  config={JSON.stringify({
+                    access_key: config.access_key,
+                    host_name: config.host_name,
+                    datarequest_id: config.datarequest_id,
+                    branding: config.branding,
+                  })}
+                ></m1-link>
+              </div>
 
-
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Launching MeasureOne Widget
-                            <Typography variant="subtitle2">
-                                The widget can also be launched without opening a Popup within your app
-                            </Typography>
-                        </Typography>
-                       
-                        <IconButton
-                            edge="end"
-                            color="inherit"
-                            onClick={handleClose}
-                            aria-label="close"
-                        >
-                            <CloseIcon />
-                        </IconButton>
-
-                    </Toolbar>
-                </AppBar>
-
-                {!scriptLoaded && (
-                    <HelmetProvider>
-                        <Helmet>
-                            <script src="https://api-stg.measureone.com/v3/js/m1-link-2021042000.js" />
-                        </Helmet>
-                    </HelmetProvider>
-                )}
-
-                <Grid container style={{ marginLeft: "auto", marginRight: "auto" }}>
-
-                    <Grid item lg={12} style={{ marginLeft: "auto", marginRight: "auto" }} >
-
-                        <div sx={{ borderRadius: "5px", borderColor: "#EFEFEF" }} style={{ borderRadius: "5px", borderColor: "#EFEFEF", border: "solid thin #EFEFEF", boxShadow: "5px", width: "380px", marginLeft: "auto", marginRight: "auto", marginTop: "3em" }}>
-                        <m1-link 
-                                ref={onWidgetRefChange}
-                                config={
-                                    JSON.stringify({
-                                        access_key: config.access_key,
-                                        host_name: config.host_name,
-                                        datarequest_id: config.datarequest_id,
-                                        branding:config.branding,
-                                    })}
-
-                                
-                            >
-                            </m1-link>
-
-                        </div>
-
-                        <div style={{ marginTop: "3em"}}>
-                            <WebhooksComponent />
-                        </div>
-
-                    </Grid>
-
-                </Grid >
-            </Dialog>
-
-        </React.Fragment>
-
-
-    )
+              <div style={{ marginTop: "3em" }}>
+                <WebhooksComponent />
+              </div>
+            </Grid>
+          </Grid>
+        </Dialog>
+      </React.Fragment>
+    );
 }
 
 async function getConfigData(values) {

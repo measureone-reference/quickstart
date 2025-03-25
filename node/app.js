@@ -71,6 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')));
     process.env.NGROK_URL = url;
   }catch(error){
     logger.error(`Error starting ngrok: ${error}`);
+    process.exit(1);
   }
 
     app.use('/', indexRouter);

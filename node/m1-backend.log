@@ -1800,3 +1800,31 @@
 2025-03-25T05:11:54.576Z - m1-backend:[info]: Auth header: Basic MjdoTjF6YWRpQ2tFUkxNMWY2YUdad0RGSkRpOjI3aE4xeGdCREUxS2l0NExPSW5GaUhOY2hmOA==
 2025-03-25T05:11:56.576Z - m1-backend:[error]: Error starting ngrok: RequestError: connect ECONNREFUSED 127.0.0.1:4040
 2025-03-25T05:11:56.577Z - m1-backend:[info]: Server started successfully
+2025-03-25T12:17:41.834Z - m1-backend:[info]: Creating an Individual with token a2cf19d1-1182-4600-9ed1-ea312473bc36
+2025-03-25T12:17:43.008Z - m1-backend:[info]: Individual created: [object Object]
+2025-03-25T12:17:56.784Z - m1-backend:[info]: Creating an Individual with token a2cf19d1-1182-4600-9ed1-ea312473bc36
+2025-03-25T12:17:58.035Z - m1-backend:[info]: Individual created: [object Object]
+2025-03-25T12:18:02.554Z - m1-backend:[info]: Creating a new Data Request with token a2cf19d1-1182-4600-9ed1-ea312473bc36
+2025-03-25T12:18:02.851Z - m1-backend:[error]: Error creating Individual: AxiosError: Request failed with status code 400
+2025-03-25T12:18:02.851Z - m1-backend:[error]: [object Object]
+2025-03-25T12:18:33.644Z - m1-backend:[info]: Starting the server ...
+2025-03-25T12:18:33.645Z - m1-backend:[info]: Generating M1 API access token ...
+2025-03-25T12:18:33.645Z - m1-backend:[info]: Base64 encoded string: MjdoTjF6YWRpQ2tFUkxNMWY2YUdad0RGSkRpOjI3aE4xeGdCREUxS2l0NExPSW5GaUhOY2hmOA==
+2025-03-25T12:18:33.646Z - m1-backend:[info]: Auth header: Basic MjdoTjF6YWRpQ2tFUkxNMWY2YUdad0RGSkRpOjI3aE4xeGdCREUxS2l0NExPSW5GaUhOY2hmOA==
+2025-03-25T12:18:35.025Z - m1-backend:[error]: Error starting ngrok: RequestError: connect ECONNREFUSED 127.0.0.1:4040
+2025-03-25T12:18:35.026Z - m1-backend:[info]: Server started successfully
+2025-03-25T12:18:46.666Z - m1-backend:[info]: Creating an Individual with token a2cf19d1-1182-4600-9ed1-ea312473bc36
+2025-03-25T12:18:47.845Z - m1-backend:[info]: Individual created: [object Object]
+2025-03-25T12:18:51.489Z - m1-backend:[info]: Creating a new Data Request with token a2cf19d1-1182-4600-9ed1-ea312473bc36
+2025-03-25T12:18:51.807Z - m1-backend:[error]: Error creating Individual: AxiosError: Request failed with status code 400
+2025-03-25T12:18:51.808Z - m1-backend:[error]: [object Object]
+2025-03-25T12:22:51.967Z - m1-backend:[[32minfo[39m]: Starting the server ...
+2025-03-25T12:22:51.968Z - m1-backend:[[32minfo[39m]: Generating M1 API access token ...
+2025-03-25T12:22:51.968Z - m1-backend:[[32minfo[39m]: Base64 encoded string: MjdoTjF6YWRpQ2tFUkxNMWY2YUdad0RGSkRpOjI3aE4xeGdCREUxS2l0NExPSW5GaUhOY2hmOA==
+2025-03-25T12:22:51.969Z - m1-backend:[[32minfo[39m]: Auth header: Basic MjdoTjF6YWRpQ2tFUkxNMWY2YUdad0RGSkRpOjI3aE4xeGdCREUxS2l0NExPSW5GaUhOY2hmOA==
+2025-03-25T12:22:53.367Z - m1-backend:[[31merror[39m]: Error starting ngrok: RequestError: connect ECONNREFUSED 127.0.0.1:4040
+2025-03-25T12:23:32.377Z - m1-backend:[[34minfo[39m]: [34mStarting the server ...[39m
+2025-03-25T12:23:32.378Z - m1-backend:[[34minfo[39m]: [34mGenerating M1 API access token ...[39m
+2025-03-25T12:23:32.379Z - m1-backend:[[34minfo[39m]: [34mBase64 encoded string: MjdoTjF6YWRpQ2tFUkxNMWY2YUdad0RGSkRpOjI3aE4xeGdCREUxS2l0NExPSW5GaUhOY2hmOA==[39m
+2025-03-25T12:23:32.379Z - m1-backend:[[34minfo[39m]: [34mAuth header: Basic MjdoTjF6YWRpQ2tFUkxNMWY2YUdad0RGSkRpOjI3aE4xeGdCREUxS2l0NExPSW5GaUhOY2hmOA==[39m
+2025-03-25T12:23:33.976Z - m1-backend:[[31merror[39m]: [31mError starting ngrok: RequestError: connect ECONNREFUSED 127.0.0.1:4040[39m
