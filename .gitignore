@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+frontend/package-lock.json
+frontend/m1-react-quickstart/package-lock.json
+node/m1-backend.log
