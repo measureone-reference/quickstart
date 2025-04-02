@@ -4,24 +4,23 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Prerequisites
-1. **Ensure Ngrok is configured on your machine:**  
+1. **Ensure Ngrok is configured on your machine:**
     - **Download and install Ngrok:** [Ngrok Official Site](https://ngrok.com/download)  
     - **Create a free Ngrok account:**  Sign up at [Ngrok Signup](https://dashboard.ngrok.com/signup) to obtain an authentication token.  
-    - **Authenticate your Ngrok installation** using the following command (replace `YOUR_AUTH_TOKEN` with the actual token from your Ngrok dashboard):  
+    - **Add your authtoken:** using the following command (replace `YOUR_AUTH_TOKEN` with the actual token from your Ngrok dashboard):  
     ```bash
       ngrok config add-authtoken <YOUR_AUTH_TOKEN>
     ```
-    - **Verify that Ngrok is installed by running**
-     ```bash
-      ngrok --version
-    ```
 
-2. **Node.js & npm:** Make sure Node.js and npm are installed on your machine.  
+2. **Ensure Node.js and npm (Node Package Manager) are installed:**
    Verify using:  
    ```bash
    node -v  
    npm -v
    ```
+   - If not installed, download and install the latest stable version from [Node.js Official Site](https://nodejs.org/en).
+
+
 
 ## Project Setup
 
