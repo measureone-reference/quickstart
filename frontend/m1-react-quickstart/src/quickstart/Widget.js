@@ -151,7 +151,6 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
             console.log("Items created", details);
             setItemsCreated(details);
             setEventsLog([...eventsLogRef.current, details]);
-            handleClose();
         }
 
         // if new ref is null , m1link has been unmounted , remove listeners of current ref
@@ -253,6 +252,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
               variant="outlined"
               fullWidth
               value={formik.values.font_family}
+              disabled
             ></TextField>
           </Grid>
           <Grid item lg={12}>
@@ -263,6 +263,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
               variant="outlined"
               fullWidth
               value={formik.values.font_url}
+              disabled
             ></TextField>
           </Grid>
         </Grid>
@@ -275,7 +276,7 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
           Open full-screen dialog
         </Button>
         <Dialog
-          sx={{ width: "1024px", borderRadius: "40px", margin: "auto" }}
+          sx={{ width: "1556px", borderRadius: "40px", margin: "auto" }}
           fullWidth
           maxWidth="lg"
           open={open}
@@ -311,26 +312,23 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
             </HelmetProvider>
           )}
 
-          <Grid container style={{ marginLeft: "auto", marginRight: "auto" }}>
-            <Grid
-              item
-              lg={12}
-              style={{ marginLeft: "auto", marginRight: "auto" }}
-            >
+          <Grid container style={{ marginLeft: 'auto', marginRight: 'auto', display: 'flex', alignItems: 'flex-start' }}>
+            
+            <Grid item lg={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div
                 style={{
-                  borderColor: "#EFEFEF",
-                  border: "solid 2px #EFEFEF",
-                  boxShadow: "5px",
-                  width: "375px",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  marginTop: "3em",
-                  borderRadius: "10px",
+                  borderColor: '#EFEFEF',
+                  border: 'solid 2px #EFEFEF',
+                  boxShadow: '5px',
+                  width: '375px',
+                  margin: '0',
+                  marginTop: '3em',
+                  borderRadius: '10px',
+                  padding: '16px',
                 }}
               >
                 <m1-link
-                  sx={{ borderRadius: "10px" }}
+                  sx={{ borderRadius: '10px' }}
                   ref={onWidgetRefChange}
                   config={JSON.stringify({
                     access_key: config.access_key,
@@ -340,10 +338,10 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
                   })}
                 ></m1-link>
               </div>
+            </Grid>
 
-              <div style={{ marginTop: "3em" }}>
-                <WebhooksComponent />
-              </div>
+            <Grid item xs={12} sm={6} style={{ marginTop: '3em', paddingLeft: '0em', paddingRight: '1em' }}>
+              <WebhooksComponent />
             </Grid>
           </Grid>
         </Dialog>

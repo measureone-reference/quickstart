@@ -7,15 +7,13 @@ import axios from 'axios';
 import ReactJson from 'react-json-view'
 
 const validationSchema = yup.object({
-    first_name: yup
-        .string('Enter your first name')
-
-        .required('First name is required'),
-    last_name: yup
-        .string('Enter your last name')
-
-        .required('Last name is required'),
-    email: yup.string("Valid email is required").email("Invalid email").required("Email is required")
+    first_name: yup.string()
+        .matches(/^[A-Za-z ]+$/, 'Please enter alphabets only')
+        .required('Required'),
+    last_name: yup.string()
+        .matches(/^[A-Za-z ]+$/, 'Please enter alphabets only')
+        .required('Required'),
+    email: yup.string().email('Invalid email address').required('Required')
 });
 
 export default function CreateIndividual({ setEnableNext, setIndividual_id, setActiveStep }) {
@@ -37,6 +35,12 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id, setA
             }
         }
     });
+
+    const handleTitleCase = (event, key) => {
+        const { value } = event.target;
+        const formattedValue = value.charAt(0).toUpperCase() + value.slice(1);
+        formik.setFieldValue(key, formattedValue); // Update Formik's field value
+      };
 
     const buttonClicked = async () => {
 
@@ -83,14 +87,20 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id, setA
                                     id="first_name"
                                     name="first_name"
                                     label="First Name"
-                                    placeholder='Enter first name'
+                                    placeholder='Enter First Name'
                                     value={formik.values.first_name}
                                     onBeforeInput={formik.handleBeforeInput}
-                                    onChange={formik.handleChange}
+                                    onChange={(e) => {
+                                        formik.handleChange(e);
+                                        handleTitleCase(e, 'first_name');
+                                    }}
                                     onBlur={formik.handleBlur}
                                     onKeyUp={formik.handleKeyUp}
                                     error={formik.touched.first_name && Boolean(formik.errors.first_name)}
                                     helperText={formik.touched.first_name && formik.errors.first_name}
+                                    inputProps={{
+                                        maxLength: 45,
+                                    }}
                                 />
                             </Grid>
                             <Grid item lg={12}>
@@ -100,13 +110,19 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id, setA
                                     id="last_name"
                                     name="last_name"
                                     label="Last Name"
-                                    placeholder='Enter last name'
+                                    placeholder='Enter Last Name'
                                     type="text"
                                     value={formik.values.last_name}
-                                    onChange={formik.handleChange}
+                                    onChange={(e) => {
+                                        formik.handleChange(e);
+                                        handleTitleCase(e, 'last_name');
+                                    }}
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.last_name && Boolean(formik.errors.last_name)}
                                     helperText={formik.touched.last_name && formik.errors.last_name}
+                                    inputProps={{
+                                        maxLength: 45,
+                                    }}
                                 />
                             </Grid>
                             <Grid item lg={12}>
@@ -122,6 +138,9 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id, setA
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.email && Boolean(formik.errors.email)}
                                     helperText={formik.touched.email && formik.errors.email}
+                                    inputProps={{
+                                        maxLength: 255,
+                                    }}
                                 />
                             </Grid>
                             <Grid item lg={12}>
@@ -137,6 +156,9 @@ export default function CreateIndividual({ setEnableNext, setIndividual_id, setA
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.external_id && Boolean(formik.errors.external_id)}
                                     helperText={formik.touched.external_id && formik.errors.external_id}
+                                    inputProps={{
+                                        maxLength: 45,
+                                    }}
                                 />
                             </Grid>
                         </Grid>
