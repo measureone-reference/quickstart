@@ -317,18 +317,18 @@ export default function LaunchLink({ setEnableNext, datarequest_id }) {
             <Grid item lg={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div
                 style={{
-                  borderColor: '#EFEFEF',
-                  border: 'solid 2px #EFEFEF',
-                  boxShadow: '5px',
-                  width: '375px',
-                  margin: '0',
-                  marginTop: '3em',
-                  borderRadius: '10px',
-                  padding: '16px',
+                  borderColor: "#EFEFEF",
+                  border: "solid 2px #EFEFEF",
+                  boxShadow: "5px",
+                  width: "375px",
+                  margin: "0",
+                  marginTop: "3em",
+                  borderRadius: "10px",
+                  padding: "16px",
                 }}
               >
                 <m1-link
-                  sx={{ borderRadius: '10px' }}
+                  sx={{ borderRadius: "10px" }}
                   ref={onWidgetRefChange}
                   config={JSON.stringify({
                     access_key: config.access_key,
