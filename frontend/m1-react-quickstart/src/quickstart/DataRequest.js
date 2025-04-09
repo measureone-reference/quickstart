@@ -92,6 +92,7 @@ export default function CreateDataRequest({ setEnableNext, setDr_id, individual_
                             <ListSubheader sx={{ fontWeight: "bold", backgroundColor: "#EFEFEF" }}>INSURANCE</ListSubheader>
                             <MenuItem value="AUTO_INSURANCE_DETAILS">Auto Insurance Details</MenuItem>
                             <MenuItem value="HOME_INSURANCE_DETAILS">Home Insurance Details</MenuItem>
+                            <MenuItem value="RENTERS_INSURANCE_DETAILS">Renters Insurance Details</MenuItem>
                             <ListSubheader sx={{ fontWeight: "bold", backgroundColor: "#EFEFEF" }}>EDUCATION</ListSubheader>
                             <MenuItem value="ACADEMIC_SUMMARY">Academic Summary</MenuItem>
                             <MenuItem value="ENROLLMENT_STATUS">Enrollment Status</MenuItem>
