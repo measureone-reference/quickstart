@@ -27,9 +27,9 @@ router.post('/new', function (req, res, next) {
   let datarequest_payload = {
     individual_id: req.body.individual_id,
     type: req.body.type,
-    request_details: {},
     enable_manual_upload: req.body.enable_manual_upload, 
-    delivery_details: webhook_delivery_details
+    delivery_details: webhook_delivery_details,
+    request_details: req.body.type === "REALIZED_GAINS" ? { tax_year: new Date().getFullYear() } : {}
   }
 
   console.log("datarequest_payload", datarequest_payload);
