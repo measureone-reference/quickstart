@@ -26,13 +26,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### 1. Frontend Setup
 
-- Copy `.env_frontend_sample` under `frontend/m1-react-quickstart` using following command and update access key in the newly created .env file.
+- Copy `.env_frontend_sample` under `frontend/m1-react-quickstart` using the following command:
   
 - ```bash
   cp .env_frontend_sample frontend/m1-react-quickstart/.env
   ```
 
-- In your terminal, navigate to the `frontend/m1-react-quickstart` folder.
+- In your terminal, navigate to the `frontend/m1-react-quickstart` folder:
 
 - ```bash
   cd frontend/m1-react-quickstart
@@ -52,12 +52,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### 2. Backend Setup (Node Server)
 
-- Open a new terminal tab and copy `.env_node_sample` under `node` using following command and update client id and secret key.
+- Open a new terminal tab and copy `.env_node_sample` under `node` using the following command:
   
 - ```bash
   cp .env_node_sample node/.env
   ```
-- Navigate to the `node` folder.
+- Update `M1_CLIENT_ID` and `M1_CLIENT_SECRET` with your client_id and secret inside `node/.env` file
+- Navigate to the `node` folder:
 - ```bash
   cd node
    ```
