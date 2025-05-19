@@ -35,13 +35,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 - In your terminal, navigate to the `frontend/m1-react-quickstart` folder:
 
-- ```bash
+ ```bash
   cd frontend/m1-react-quickstart
   ```
 
 - Run the following command to install dependencies:
 
-- ```bash
+ ```bash
    npm install
   ```
 
