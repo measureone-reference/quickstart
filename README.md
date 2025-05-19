@@ -28,9 +28,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 - Copy `.env_frontend_sample` under `frontend/m1-react-quickstart` using the following command:
   
-- ```bash
+  ```bash
   cp .env_frontend_sample frontend/m1-react-quickstart/.env
   ```
+- Provide the M1_CLIENT_ID and M1_CLIENT_SECRET in your .env file
 
 - In your terminal, navigate to the `frontend/m1-react-quickstart` folder:
 
