@@ -31,18 +31,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   ```bash
   cp .env_frontend_sample frontend/m1-react-quickstart/.env
   ```
-- Provide the M1_CLIENT_ID and M1_CLIENT_SECRET in your .env file
 
 - In your terminal, navigate to the `frontend/m1-react-quickstart` folder:
 
- ```bash
+  ```bash
   cd frontend/m1-react-quickstart
   ```
 
 - Run the following command to install dependencies:
 
- ```bash
-   npm install
+  ```bash
+  npm install
   ```
 
 - Once the dependencies are installed, start the frontend application with:
@@ -55,14 +54,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 - Open a new terminal tab and copy `.env_node_sample` under `node` using the following command:
   
-- ```bash
+  ```bash
   cp .env_node_sample node/.env
   ```
 - Update `M1_CLIENT_ID` and `M1_CLIENT_SECRET` with your client_id and secret inside `node/.env` file
 - Navigate to the `node` folder:
-- ```bash
+  ```bash
   cd node
-   ```
+  ```
 - Run the following command to install dependencies:
   ```bash
   npm install
